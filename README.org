@@ -1,0 +1,85 @@
+#+TITLE: drewc's apt repository
+
+Some things need packaged. 
+
+#+begin_src shell
+cd ~/src/ && git clone git@github.com:drewc/apt-repo.git
+#+end_src
+
+Apparently, the way to do this is [[https://blog.packagecloud.io/eng/2017/03/23/create-debian-repository-reprepro/][reprepro]].
+
+#+begin_src shell
+cd /tmp/
+wget https://launchpadlibrarian.net/409523835/reprepro_5.3.0-1_amd64.deb
+sudo dpkg -i reprepro_5.3.0-1_amd64.deb
+#+end_src
+
+Apparently, the ~conf/distributions~ file is "is the main configuration file
+and the only that is needed in all cases."([[https://www.red-bean.com/doc/reprepro/manual.html][manual]]).
+
+#+begin_src shell
+mkdir -p ~/src/apt-repo/conf
+#+end_src
+
+#+begin_src conf :tangle conf/distributions
+  Codename: xenial 
+  Components: main
+  Architectures: amd64 source
+  DscIndices: Sources Release . .xz
+  SignWith: yes
+
+  Codename: stretch
+  Suite: stable
+  Components: main
+  Architectures: amd64 source
+#+end_src
+
+#+begin_src shell
+
+  # If your conf/distributions file contained a Suite: and you are too lazy to
+  # generate the symbolic links yourself, call:
+  
+  reprepro -b ~/src/apt-repo createsymlinks
+
+#+end_src
+
+We've got some .changes ... lets try.
+
+#+begin_src shell
+reprepro -b ~/src/apt-repo include xenial /home/user/src/apt/gambc_4.9.3-1ppa2_source.changes
+#+end_src
+
+Export the public part of the GnuPG keypair from the keychain:
+
+#+begin_src shell 
+ gpg --armor --output ~/src/apt-repo/gpg.key --export 2AF9CFE6
+#+end_src
+
+Well, that's awesome, we now have a repo with that source. Let's try it out.
+
+#+begin_src shell
+echo "deb-src file:///home/user/src/apt-repo xenial main" > sudo tee /etc/apt/sources.list.d/drewc-apt-repo.list
+cat ~/src/apt-repo/gpg.key | sudo apt-key add -
+sudo apt-get update
+#+end_src
+
+Now let's install the source, and build it.
+
+#+begin_src shell
+  cd `mktemp -d`; mkdir source; cd source;
+
+  sudo apt-get install build-essential fakeroot dpkg-dev
+
+  apt-get source --allow-unauthenticated gambc
+  sudo apt-get build-dep gambc
+
+  # build the package :
+  cd gambc-4.9.3 && debuild -b
+
+#+end_src
+
+Awesome, it works. We'll commit it to github, and go raw from there.
+
+#+begin_src shell
+git add * && git commit -m "First Import" && git push
+#+end_src
