@@ -28,3 +28,30 @@ Checksums-Sha256:
  ad7409dfff540f63316447f9c870d27322be424e7b1825a5f9b197c7c83420f1 12993585 gambc_4.9.3.orig.tar.gz
  b7776caf53c304630437d1d28b64c7403218bbf0f082063e75ae5c5955e9611c 5720 gambc_4.9.3-1ppa2.debian.tar.xz
 
+Package: gerbil
+Format: 3.0 (quilt)
+Binary: gerbil
+Architecture: any
+Version: 0.15.2-1ppa2
+Maintainer: Drew Crampsie <me@drewc.ca>
+Homepage: https://github.com/vyzo/gerbil
+Standards-Version: 4.0.1
+Build-Depends: debhelper, texinfo, libssl-dev, gambc, zlib1g-dev, libsqlite3-dev, libyaml-dev, libxml2-dev, libleveldb-dev, libmysqlclient-dev, liblmdb-dev
+Package-List:
+ gerbil deb devel optional arch=any
+Priority: optional
+Section: devel
+Directory: pool/main/g/gerbil
+Files: 
+ b7206666fcf1453cb88788e41e9119be 1813 gerbil_0.15.2-1ppa2.dsc
+ 6b8f6ad09c3d0b60ff062e88c541395f 1355380 gerbil_0.15.2.orig.tar.gz
+ db5cedd4023f6f52203541efa7a53300 2564 gerbil_0.15.2-1ppa2.debian.tar.xz
+Checksums-Sha1: 
+ fc065a5f7381023853ae3656bd0a9474b6cf2451 1813 gerbil_0.15.2-1ppa2.dsc
+ cff26cffde84a6e592bcaf195f8c7785bff8c45a 1355380 gerbil_0.15.2.orig.tar.gz
+ 4781ca724437f40a3b1f2fc1f9e63faff1594e05 2564 gerbil_0.15.2-1ppa2.debian.tar.xz
+Checksums-Sha256: 
+ 42835f36878f2280a54cd44e190d7c96fcc6da42bcaa25b017e75d4cc0e54ae1 1813 gerbil_0.15.2-1ppa2.dsc
+ 2ede282d8156682ed7cc16048958f0f30c7b527e91a0fc50ff5e0c9015a52ddd 1355380 gerbil_0.15.2.orig.tar.gz
+ 8c8980b62db72d384459bb37a6faa7cd7e798cd79922b0e9073926d19879da85 2564 gerbil_0.15.2-1ppa2.debian.tar.xz
+
