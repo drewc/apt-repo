@@ -1,20 +1,46 @@
 #+TITLE: drewc's apt repository
 
-Some things need packaged. 
+* Introduction
+
+Some things need packaged. For VM's, I like to simply ~apt-get install~. Thus,
+this repository-repository comes into being.
+
+* Usage 
 
 #+begin_src shell
-cd ~/src/ && git clone git@github.com:drewc/apt-repo.git
+DREWC_APT_REPO="https://raw.githubusercontent.com/drewc/apt-repo/master"
+DREWC_SOURCES="/etc/apt/sources.list.d/drewc-apt-repo.list"
+
+# Make the sources.list.d
+
+echo "deb $DREWC_APT_REPO xenial main" | sudo tee $DREWC_SOURCES
+echo "deb-src $DREWC_APT_REPO xenial main" | sudo tee -a $DREWC_SOURCES
+
+# Add the GPG public key 
+curl $DREWC_APT_REPO/gpg.key | sudo apt-key add -
+
+# And Update
+sudo apt-get update
+
+# And Install
+
+sudo apt-get install gerbil
 #+end_src
 
+* Code 
+
+#+begin_src shell
+mkdir ~/src/ ; cd ~/src/ && git clone git@github.com:drewc/apt-repo.git
+#+end_src
 Apparently, the way to do this is [[https://blog.packagecloud.io/eng/2017/03/23/create-debian-repository-reprepro/][reprepro]].
 
+Apparently, the ~conf/distributions~ file is "is the main configuration file
 #+begin_src shell
 cd /tmp/
 wget https://launchpadlibrarian.net/409523835/reprepro_5.3.0-1_amd64.deb
 sudo dpkg -i reprepro_5.3.0-1_amd64.deb
+sudo apt-get install -f
 #+end_src
-
-Apparently, the ~conf/distributions~ file is "is the main configuration file
 and the only that is needed in all cases."([[https://www.red-bean.com/doc/reprepro/manual.html][manual]]).
 
 #+begin_src shell
@@ -62,15 +88,44 @@ echo "deb-src file:///home/user/src/apt-repo xenial main" > sudo tee /etc/apt/so
 cat ~/src/apt-repo/gpg.key | sudo apt-key add -
 sudo apt-get update
 #+end_src
-
 Now let's install the source, and build it.
+
 
 #+begin_src shell
   cd `mktemp -d`; mkdir source; cd source;
 
   sudo apt-get install build-essential fakeroot dpkg-dev
 
-  apt-get source --allow-unauthenticated gambc
+  apt-get source gambc
+  sudo apt-get build-dep gambc
+
+  # build the package :
+  cd gambc-4.9.3 && debuild -b
+
+#+end_src
+Awesome, it works. We'll commit it to github, and go raw from there.
+
+#+begin_src shell
+git add * && git commit -m "First Import" && git push
+#+end_src
+
+Ok, so time for a new machine made just to build such things.
+
+#+begin_src shell
+echo "deb-src https://raw.githubusercontent.com/drewc/apt-repo/master xenial main" | sudo tee /etc/apt/sources.list.d/drewc-apt-repo.list
+curl https://raw.githubusercontent.com/drewc/apt-repo/master/gpg.key | sudo apt-key add -
+sudo apt-get update
+#+end_src
+
+Now we'll build it again.
+
+
+#+begin_src shell
+  cd `mktemp -d`; mkdir source; cd source;
+
+  sudo apt-get install --yes build-essential fakeroot dpkg-dev
+
+  apt-get source gambc
   sudo apt-get build-dep gambc
 
   # build the package :
@@ -78,8 +133,45 @@ Now let's install the source, and build it.
 
 #+end_src
 
-Awesome, it works. We'll commit it to github, and go raw from there.
+
+That worked, so time to commit the package.
+
 
 #+begin_src shell
-git add * && git commit -m "First Import" && git push
+cd ../../ && mv source/ ~
+
+mkdir ~/src/ ; cd ~/src/ && git clone git@github.com:drewc/apt-repo.git
+#+end_src
+
+#+begin_src shell
+cd /tmp/
+wget https://launchpadlibrarian.net/409523835/reprepro_5.3.0-1_amd64.deb
+sudo dpkg -i reprepro_5.3.0-1_amd64.deb
+sudo apt-get install -f
+#+end_src
+
+
+#+begin_src shell
+cd ~/source/ && reprepro -b ~/src/apt-repo include xenial gambc_4.9.3-1ppa2_amd64.changes
+
+git config --global user.email me@drewc.ca
+git config --global user.name "Drew Crampsie"
+
+cd ~/src/apt-repo && git add -A && git commit -m "Add built under xenial" && git push
+
+#+end_src
+
+Now we try to install our new gambc
+
+#+begin_src shell
+echo "deb https://raw.githubusercontent.com/drewc/apt-repo/master xenial main" | sudo tee -a /etc/apt/sources.list.d/drewc-apt-repo.list
+sudo apt-get update
+sudo apt-get install --yes gambc
+#+end_src
+
+Which works wonders!
+
+#+begin_src shell
+gsc -v
+#=> v4.9.3 20180930122740 x86_64-pc-linux-gnu "./configure '--build=x86_64-linux-gnu' '--prefix=/usr' '--includedir=/usr/include' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--sysconfdir=/etc' '--localstatedir=/var' '--disable-silent-rules' '--libdir=/usr/lib/x86_64-linux-gnu' '--libexecdir=/usr/lib/x86_64-linux-gnu' '--disable-maintainer-mode' '--disable-dependency-tracking' '--enable-single-host' '--enable-shared' '--enable-openssl' '--enable-default-runtime-options=f8,-8,t8' '--enable-poll' '--enable-versioned-shared-libs' '--disable-absolute-shared-libs' '--libdir=/usr/lib/x86_64-linux-gnu/gambit4' 'build_alias=x86_64-linux-gnu' 'CFLAGS=-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security' 'LDFLAGS=-Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now -Wl,--as-needed' 'CPPFLAGS=-Wdate-time -D_FORTIFY_SOURCE=2' 'CXXFLAGS=-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security'"
 #+end_src
