@@ -44,6 +44,30 @@ Description: documentation for the Gambit interpreter and compiler
  and compiler suite.  Also included are numerous examples, benchmark code,
  and an implementation of syntax-case for Gambit.
 
+Package: gerbil
+Version: 0.15.2-1ppa2
+Architecture: amd64
+Maintainer: Drew Crampsie <me@drewc.ca>
+Installed-Size: 55472
+Depends: gambc (>= 4.9.0)
+Homepage: https://github.com/vyzo/gerbil
+Priority: optional
+Section: devel
+Filename: pool/main/g/gerbil/gerbil_0.15.2-1ppa2_amd64.deb
+Size: 6978944
+SHA256: 573b1a4929751e1efa72782983d4371d16226902fd6074d3b06edf111a3dfdd7
+SHA1: c4e6219fbb9599fe21900a34a4b5ed6b1c92eb40
+MD5sum: c2fbbbd414f15cf00454a574b10685b0
+Description: Gerbil is an opinionated dialect of Scheme designed for Systems
+ Programming, with a state of the art macro and module system on top of the
+ Gambit runtime.
+ .
+ The macro system is based on quote-syntax, and provides the full meta-syntactic
+ tower with a native implementation of syntax-case. It also provides a
+ full-blown module system, similar to PLT Scheme (sorry, Racket) modules. The
+ main difference from Racket is that Gerbil modules are single instantiation,
+ supporting high performance ahead of time compilation and compiled macros.
+
 Package: libgambit4
 Source: gambc
 Version: 4.9.3-1ppa2
