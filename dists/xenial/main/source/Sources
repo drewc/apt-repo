@@ -55,3 +55,30 @@ Checksums-Sha256:
  2ede282d8156682ed7cc16048958f0f30c7b527e91a0fc50ff5e0c9015a52ddd 1355380 gerbil_0.15.2.orig.tar.gz
  8c8980b62db72d384459bb37a6faa7cd7e798cd79922b0e9073926d19879da85 2564 gerbil_0.15.2-1ppa2.debian.tar.xz
 
+Package: gerbil-snapshot
+Format: 3.0 (quilt)
+Binary: gerbil-snapshot
+Architecture: any
+Version: 0.16.0-1snapshot-DEV-20-g8c99110ubuntu1
+Maintainer: Drew Crampsie <me@drewc.ca>
+Homepage: https://github.com/vyzo/gerbil
+Standards-Version: 4.0.1
+Build-Depends: debhelper, texinfo, libssl-dev, gambc, zlib1g-dev, libsqlite3-dev, libyaml-dev, libxml2-dev, libleveldb-dev, libmysqlclient-dev, liblmdb-dev
+Package-List:
+ gerbil-snapshot deb devel optional arch=any
+Priority: optional
+Section: devel
+Directory: pool/main/g/gerbil-snapshot
+Files: 
+ 5bdaa32c8b2d09d3a8fc1a4c4befeaaf 2053 gerbil-snapshot_0.16.0-1snapshot-DEV-20-g8c99110ubuntu1.dsc
+ 08b0617f211264e169bf35a816fb3eb7 1360448 gerbil-snapshot_0.16.0-1snapshot-DEV-20.orig.tar.gz
+ 8ae6af91385bb76704f2eb662898ede1 8584 gerbil-snapshot_0.16.0-1snapshot-DEV-20-g8c99110ubuntu1.debian.tar.xz
+Checksums-Sha1: 
+ 5c424fa629d1ebedb2240c344204c5f95f0901a7 2053 gerbil-snapshot_0.16.0-1snapshot-DEV-20-g8c99110ubuntu1.dsc
+ aed6b3ca0cc008c27d239778c56db2f4fbc15d7b 1360448 gerbil-snapshot_0.16.0-1snapshot-DEV-20.orig.tar.gz
+ 51c075c58d79b355f2228b4bc7b770254f748b1c 8584 gerbil-snapshot_0.16.0-1snapshot-DEV-20-g8c99110ubuntu1.debian.tar.xz
+Checksums-Sha256: 
+ 88f7029f38c2ca2dfdeed613239488028a162749001df88950e66fcb444f016c 2053 gerbil-snapshot_0.16.0-1snapshot-DEV-20-g8c99110ubuntu1.dsc
+ 10c658a0e0302c6d960097ecf3d59b94131dbdde25224b72b3b30e42c571c704 1360448 gerbil-snapshot_0.16.0-1snapshot-DEV-20.orig.tar.gz
+ f469e71ca863b4dcdb7823b8db26e8bbb055319807b84a23e5888ea76f1f5b95 8584 gerbil-snapshot_0.16.0-1snapshot-DEV-20-g8c99110ubuntu1.debian.tar.xz
+
