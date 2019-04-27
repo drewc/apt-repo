@@ -68,6 +68,30 @@ Description: Gerbil is an opinionated dialect of Scheme designed for Systems
  main difference from Racket is that Gerbil modules are single instantiation,
  supporting high performance ahead of time compilation and compiled macros.
 
+Package: gerbil-snapshot
+Version: 0.16.0-1snapshot-DEV-20-g8c99110ubuntu1
+Architecture: amd64
+Maintainer: Drew Crampsie <me@drewc.ca>
+Installed-Size: 55630
+Depends: gambc (>= 4.9.0)
+Homepage: https://github.com/vyzo/gerbil
+Priority: optional
+Section: devel
+Filename: pool/main/g/gerbil-snapshot/gerbil-snapshot_0.16.0-1snapshot-DEV-20-g8c99110ubuntu1_amd64.deb
+Size: 6999292
+SHA256: 0760a2475c8625c95f139e445b5e98e844206a5873896518f56dd16fe51c360e
+SHA1: 63e008999e6bdef4aee39597106a218818f551fe
+MD5sum: e61b0eaf483cacc4187bb2ab619dfce0
+Description: Gerbil is an opinionated dialect of Scheme designed for Systems
+ Programming, with a state of the art macro and module system on top of the
+ Gambit runtime.
+ .
+ The macro system is based on quote-syntax, and provides the full meta-syntactic
+ tower with a native implementation of syntax-case. It also provides a
+ full-blown module system, similar to PLT Scheme (sorry, Racket) modules. The
+ main difference from Racket is that Gerbil modules are single instantiation,
+ supporting high performance ahead of time compilation and compiled macros.
+
 Package: libgambit4
 Source: gambc
 Version: 4.9.3-1ppa2
