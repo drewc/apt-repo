@@ -4,6 +4,12 @@ Architectures: amd64 source
 DscIndices: Sources Release . .xz
 SignWith: yes
 
+Codename: bionic 
+Components: main
+Architectures: amd64 source
+DscIndices: Sources Release . .xz
+SignWith: yes
+
 Codename: stretch
 Suite: stable
 Components: main
