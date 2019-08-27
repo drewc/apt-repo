@@ -1,0 +1,30 @@
+Package: gambc
+Format: 3.0 (quilt)
+Binary: gambc, libgambit4, libgambit4-dev, gambc-doc
+Architecture: any all
+Version: 4.9.3-1ppa3
+Maintainer: Drew Crampsie <me@drewc.ca>
+Homepage: http://gambitscheme.org
+Standards-Version: 4.0.1
+Build-Depends: debhelper, texinfo, libssl-dev
+Package-List:
+ gambc deb devel optional arch=any
+ gambc-doc deb doc optional arch=all
+ libgambit4 deb libs optional arch=any
+ libgambit4-dev deb libdevel optional arch=any
+Priority: optional
+Section: devel
+Directory: pool/main/g/gambc
+Files: 
+ e4599864ac1379dfa7f6db011bb5a56e 1882 gambc_4.9.3-1ppa3.dsc
+ 4d150ad7c575d17e83bf82f421baa111 12993585 gambc_4.9.3.orig.tar.gz
+ b24d645b07a2b66139de8039a4296fd4 8720 gambc_4.9.3-1ppa3.debian.tar.xz
+Checksums-Sha1: 
+ 459a8e98fbb7ec31f5e1d4abfd1b46d8398a2cb6 1882 gambc_4.9.3-1ppa3.dsc
+ 937e7e4b20c02e299bfb183ba52cb6c63d28395d 12993585 gambc_4.9.3.orig.tar.gz
+ 9c7b946ec78c268fb08d13b87f4930b9e4b45592 8720 gambc_4.9.3-1ppa3.debian.tar.xz
+Checksums-Sha256: 
+ bba665f7f9b4106cbc9ac59f9a1ee2bcdc2e7de0c824a7ea85467041115fbaac 1882 gambc_4.9.3-1ppa3.dsc
+ ad7409dfff540f63316447f9c870d27322be424e7b1825a5f9b197c7c83420f1 12993585 gambc_4.9.3.orig.tar.gz
+ fe02f2dd50b0ecb3e9b060555f13871ce195017af4b609d5f22b220c336587da 8720 gambc_4.9.3-1ppa3.debian.tar.xz
+
